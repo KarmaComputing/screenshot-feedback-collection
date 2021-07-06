@@ -3,17 +3,50 @@
 <body>
   <head>
     <script src="https://unpkg.com/html2canvas@1.0.0/dist/html2canvas.js"></script>
-  </head>
-  <textarea id="comment">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-  </textarea>
-  <input id="submit" type="submit" />
+  </head>
+
+<!-- Button trigger Feedback modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#feedbackModal">
+  Send Feedback
+</button>
+
+<!-- Feedback Modal -->
+<div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="feedbackModalLabel">Feedback</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+          <textarea id="feedback-comment" class="form-control" placeholder="Help us improve this page."></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" id="submit" class="btn btn-primary" data-dismiss="modal">Send feedback</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end Feedback Modal -->
 
 
 <script>
 document.getElementById('submit').addEventListener("click", captureFeedback);
 
 function captureFeedback(e) {
+  document.getElementById('feedbackModal').style.display = 'none';
   html2canvas(document.body).then(canvas => {
       document.body.appendChild(canvas);
       elm = document.getElementsByTagName("canvas")[0];
@@ -21,10 +54,11 @@ function captureFeedback(e) {
       sendFeedback(screenshotDataurl);
       elm.remove();
   });
+  document.getElementById('feedbackModal').style.display = 'block';
 }
 
 function sendFeedback(screenshotDataurl) {
-  comment = document.getElementById('comment').value;
+  let comment = document.getElementById('feedback-comment').value;
   feedback = {};
   feedback.screenshot = screenshotDataurl;
   feedback.comment = comment;
@@ -32,6 +66,7 @@ function sendFeedback(screenshotDataurl) {
   fetch('https://httpbin.org/post',{method: 'POST', body: JSON.stringify(feedback)})
     .then(response => response.json())
     .then(data => console.log(data));
+  alert("Thanks for your time. Your feedback helps us improve.");
 }
 
 </script>
