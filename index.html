@@ -47,6 +47,7 @@ document.getElementById('submit').addEventListener("click", captureFeedback);
 
 function captureFeedback(e) {
   document.getElementById('feedbackModal').style.display = 'none';
+  document.querySelector('.modal-backdrop.fade.show').style.display = 'none';
   html2canvas(document.body).then(canvas => {
       document.body.appendChild(canvas);
       elm = document.getElementsByTagName("canvas")[0];
@@ -55,6 +56,7 @@ function captureFeedback(e) {
       elm.remove();
   });
   document.getElementById('feedbackModal').style.display = 'block';
+  document.querySelector('.modal-backdrop.fade.show').style.display = 'block';
 }
 
 function sendFeedback(screenshotDataurl) {
