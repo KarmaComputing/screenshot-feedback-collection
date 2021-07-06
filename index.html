@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <head>
+    <script src="https://unpkg.com/html2canvas@1.0.0/dist/html2canvas.js"></script>
+  </head>
+  <textarea id="comment">
+
+  </textarea>
+  <input id="submit" type="submit" />
+
+
+<script>
+document.getElementById('submit').addEventListener("click", captureFeedback);
+
+function captureFeedback(e) {
+  html2canvas(document.body).then(canvas => {
+      document.body.appendChild(canvas);
+      elm = document.getElementsByTagName("canvas")[0];
+      screenshotDataurl = elm.toDataURL();
+      sendFeedback(screenshotDataurl);
+      elm.remove();
+  });
+}
+
+function sendFeedback(screenshotDataurl) {
+  comment = document.getElementById('comment').value;
+  feedback = {};
+  feedback.screenshot = screenshotDataurl;
+  feedback.comment = comment;
+  
+  fetch('https://httpbin.org/post',{method: 'POST', body: JSON.stringify(feedback)})
+    .then(response => response.json())
+    .then(data => console.log(data));
+}
+
+</script>
+</body>
+</html>
