@@ -17,6 +17,14 @@ send it, along with text feedback to a location of your choice.
 
 **Note:** Ideally the [screen capture api](https://developer.mozilla.org/en-US/docs/Web/API/Screen_Capture_API/Using_Screen_Capture) would be used, and will be added. Apple have still not implemented this api on iOS. Non iOS users can can real screenshots (thanks to `getDisplayMedia`). TODO - use `getDisplayMedia` if not an iOS user to get genuine screenshots.
 
+
+### Send feedback
+![Screenshot from 2021-07-06 23-05-38](https://user-images.githubusercontent.com/1718624/124672502-06d1fc00-deaf-11eb-806a-a1eeca9981ea.png)
+
+### Capture feedback
+![Screenshot from 2021-07-06 23-07-37](https://user-images.githubusercontent.com/1718624/124672526-13eeeb00-deaf-11eb-905f-e613c51f1217.png)
+
+
 # Live Demo
 
 https://replit.com/@chrisjsimpson/VelvetyStarchyDirectory#templates/index.html
