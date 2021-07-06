@@ -8,3 +8,37 @@ This code will take a picture of the *dom* (like a screenshot) and
 send it, along with text feedback to a location of your choice.
 
 - Useful for getting actionable feedback from users who wish to send it
+
+# How does it work
+
+- Uses [html2canvas](https://html2canvas.hertzen.com/) to generate image of webpage
+- User clicks 'feedback'
+- Feedback & screenshot is sent whem submitted
+
+**Note:** Ideally the [screen capture api](https://developer.mozilla.org/en-US/docs/Web/API/Screen_Capture_API/Using_Screen_Capture) would be used, and will be added. Apple have still not implemented this api on iOS. Non iOS users can can real screenshots (thanks to `getDisplayMedia`). TODO - use `getDisplayMedia` if not an iOS user to get genuine screenshots.
+
+# Live Demo
+
+https://replit.com/@chrisjsimpson/VelvetyStarchyDirectory#templates/index.html
+
+# Endpoint to receive feedback
+
+## Running Locally Setup
+```
+git clone https://github.com/KarmaComputing/screenshot-feedback-collection.git
+python3 -m venv venv
+. venv/bin/activate
+pip install -r requirements.txt
+```
+
+1. Open index.html in your web browser
+
+2. Run the endpoint
+
+```
+export FLASK_APP=app
+export FLASK_DEBUG=1
+flask run
+```
+
+3. Submit some feedback

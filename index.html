@@ -63,7 +63,9 @@ function sendFeedback(screenshotDataurl) {
   feedback.screenshot = screenshotDataurl;
   feedback.comment = comment;
   
-  fetch('https://httpbin.org/post',{method: 'POST', body: JSON.stringify(feedback)})
+  fetch('http://127.0.0.1:5000/', {
+    method: 'POST', body: JSON.stringify(feedback),
+    headers: {'Content-Type': 'application/json'}})
     .then(response => response.json())
     .then(data => console.log(data));
   alert("Thanks for your time. Your feedback helps us improve.");
